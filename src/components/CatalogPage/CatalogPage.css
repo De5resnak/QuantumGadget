@@ -1,0 +1,8 @@
+
+.custom-hover{
+    color: #6c757d!important;
+}
+
+.custom-hover:hover {
+    color: black !important;
+}

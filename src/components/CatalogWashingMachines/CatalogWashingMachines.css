@@ -1,0 +1,20 @@
+.custom-hover{
+    color: #6c757d!important;
+}
+
+.custom-hover:hover {
+    color: black !important;
+}
+
+.sort-dropdown {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#sort-select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}

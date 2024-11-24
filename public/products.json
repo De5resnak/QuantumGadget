@@ -1,0 +1,191 @@
+[
+  {
+    "id": 1,
+    "name": "Quantum Phone",
+    "brand": "QuantumTech",
+    "shortDescription": "A revolutionary smartphone with quantum computing power.",
+    "price": 999.99,
+    "inStock": true,
+    "manufacturer": "QuantumTech",
+    "material": "Aluminum",
+    "dimensions": "150x70x7 mm",
+    "weight": "180 g",
+    "description": "Full detailed description of Quantum Phone...",
+    "model": "QPhone-2024",
+    "power": "3000 mAh",
+    "filter": "Quantum Filter",
+    "images": [
+      "https://placehold.co/1920x1080",
+      "https://placehold.co/1920x1080",
+      "https://placehold.co/1920x1080"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Quantum Laptop",
+    "brand": "QuantumTech",
+    "shortDescription": "A laptop that utilizes quantum technology for unparalleled speed.",
+    "price": 1999.99,
+    "inStock": false,
+    "manufacturer": "QuantumTech",
+    "material": "Carbon Fiber",
+    "dimensions": "320x220x18 mm",
+    "weight": "1.5 kg",
+    "description": "Full detailed description of Quantum Laptop...",
+    "model": "QLaptop-2024",
+    "power": "60 Wh",
+    "filter": "Quantum Cooling System",
+    "images": [
+      "https://placehold.co/1920x1080",
+      "https://placehold.co/1920x1080",
+      "https://placehold.co/1920x1080"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Quantum Tablet",
+    "brand": "QuantumTech",
+    "shortDescription": "A tablet with quantum-enhanced features and performance.",
+    "price": 599.99,
+    "inStock": true,
+    "manufacturer": "QuantumTech",
+    "material": "Plastic",
+    "dimensions": "240x170x8 mm",
+    "weight": "450 g",
+    "description": "Full detailed description of Quantum Tablet...",
+    "model": "QTablet-2024",
+    "power": "7000 mAh",
+    "filter": "Quantum Screen Protector",
+    "images": [
+      "https://placehold.co/1920x1080",
+      "https://placehold.co/1920x1080",
+      "https://placehold.co/1920x1080"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Quantum Watch",
+    "brand": "QuantumTech",
+    "shortDescription": "A smartwatch powered by quantum computing.",
+    "price": 299.99,
+    "inStock": true,
+    "manufacturer": "QuantumTech",
+    "material": "Stainless Steel",
+    "dimensions": "40x40x10 mm",
+    "weight": "50 g",
+    "description": "Full detailed description of Quantum Watch...",
+    "model": "QWatch-2024",
+    "power": "500 mAh",
+    "filter": "Quantum Time",
+    "images": [
+      "https://placehold.co/1920x1080",
+      "https://placehold.co/1920x1080",
+      "https://placehold.co/1920x1080"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Quantum Speaker",
+    "brand": "QuantumTech",
+    "shortDescription": "A speaker with quantum-enhanced sound quality.",
+    "price": 199.99,
+    "inStock": true,
+    "manufacturer": "QuantumTech",
+    "material": "Plastic",
+    "dimensions": "100x100x150 mm",
+    "weight": "500 g",
+    "description": "Full detailed description of Quantum Speaker...",
+    "model": "QSpeaker-2024",
+    "power": "2000 mAh",
+    "filter": "Quantum Sound",
+    "images": [
+      "https://placehold.co/1920x1080",
+      "https://placehold.co/1920x1080",
+      "https://placehold.co/1920x1080"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Quantum VR Headset",
+    "brand": "QuantumTech",
+    "shortDescription": "A VR headset with quantum technology for immersive experiences.",
+    "price": 399.99,
+    "inStock": true,
+    "manufacturer": "QuantumTech",
+    "material": "Plastic",
+    "dimensions": "200x100x100 mm",
+    "weight": "600 g",
+    "description": "Full detailed description of Quantum VR Headset...",
+    "model": "QVR-2024",
+    "power": "3000 mAh",
+    "filter": "Quantum Reality",
+    "images": [
+      "https://placehold.co/1920x1080",
+      "https://placehold.co/1920x1080",
+      "https://placehold.co/1920x1080"
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Quantum Smart Home Hub",
+    "brand": "QuantumTech",
+    "shortDescription": "A smart home hub with quantum processing for seamless integration.",
+    "price": 249.99,
+    "inStock": true,
+    "manufacturer": "QuantumTech",
+    "material": "Plastic",
+    "dimensions": "150x150x50 mm",
+    "weight": "400 g",
+    "description": "Full detailed description of Quantum Smart Home Hub...",
+    "model": "QHub-2024",
+    "power": "4000 mAh",
+    "filter": "Quantum Connectivity",
+    "images": [
+      "https://placehold.co/1920x1080",
+      "https://placehold.co/1920x1080",
+      "https://placehold.co/1920x1080"
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Quantum Drone",
+    "brand": "QuantumTech",
+    "shortDescription": "A drone with quantum-enhanced navigation and stability.",
+    "price": 899.99,
+    "inStock": true,
+    "manufacturer": "QuantumTech",
+    "material": "Aluminum",
+    "dimensions": "300x300x100 mm",
+    "weight": "800 g",
+    "description": "Full detailed description of Quantum Drone...",
+    "model": "QDrone-2024",
+    "power": "5000 mAh",
+    "filter": "Quantum Flight",
+    "images": [
+      "https://placehold.co/1920x1080",
+      "https://placehold.co/1920x1080",
+      "https://placehold.co/1920x1080"
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Quantum Smart Glasses",
+    "brand": "QuantumTech",
+    "shortDescription": "Smart glasses with quantum computing for augmented reality.",
+    "price": 499.99,
+    "inStock": true,
+    "manufacturer": "QuantumTech",
+    "material": "Plastic",
+    "dimensions": "140x50x20 mm",
+    "weight": "100 g",
+    "description": "Full detailed description of Quantum Smart Glasses...",
+    "model": "QGlasses-2024",
+    "power": "800 mAh",
+    "filter": "Quantum Vision",
+    "images": [
+      "https://placehold.co/1920x1080",
+      "https://placehold.co/1920x1080",
+      "https://placehold.co/1920x1080"
+    ]
+  }
+]
