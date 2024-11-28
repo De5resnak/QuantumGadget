@@ -7,6 +7,14 @@ class ProductImageSerializer(serializers.ModelSerializer):
         model = ProductImage
         fields = ['image']
 
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        request = self.context.get('request')
+        if request and instance.image:
+            # Генерация полного URL изображения
+            representation['image'] = request.build_absolute_uri(instance.image.url)
+        return representation
+
 
 class ProductSerializer(serializers.ModelSerializer):
     images = ProductImageSerializer(many=True, read_only=True)

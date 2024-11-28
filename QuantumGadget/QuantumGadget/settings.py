@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -52,7 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corshedaers.middleware.CorsMiddleware'
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'QuantumGadget.urls'
@@ -121,7 +122,8 @@ USE_I18N = True
 
 USE_TZ = True
 
-
+MEDIA_URL = '/media/'  # Путь для доступа к медиафайлам
+MEDIA_ROOT = BASE_DIR / 'media'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
