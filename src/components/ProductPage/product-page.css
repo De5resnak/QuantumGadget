@@ -1,0 +1,104 @@
+
+.product-page {
+    margin-top: 30px;
+}
+
+
+.product-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+
+.brand {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+
+.availability {
+    font-weight: bold;
+}
+
+.availability.in-stock {
+    color: green;
+}
+
+.availability.out-of-stock {
+    color: red;
+}
+
+
+.short-description {
+    margin: 10px 0;
+    font-size: 1.1rem;
+    color: #777;
+}
+
+.price {
+    font-size: 1.5rem;
+    color: #f60;
+    margin: 15px 0;
+}
+
+
+.btn-primary {
+    background-color: #f60;
+    border-color: #f60;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background-color: #e55a00;
+    border-color: #e55a00;
+}
+
+
+.section-title {
+    font-size: 1.3rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+
+.product-details {
+    list-style-type: none;
+    padding: 0;
+}
+
+.product-details li {
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+
+.full-description {
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.5;
+}
+
+
+.table-bordered {
+    margin-top: 20px;
+}
+
+.table-bordered th,
+.table-bordered td {
+    padding: 10px;
+    text-align: left;
+}
+
+.table-bordered th {
+    width: 30%;
+    background-color: #f7f7f7;
+}
+
+.product-info {
+    padding-right: 30px;
+}
+
+.product-page .row {
+    margin-bottom: 50px;
+}

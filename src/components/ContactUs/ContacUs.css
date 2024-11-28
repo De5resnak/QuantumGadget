@@ -1,0 +1,92 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header{
+    display: block;
+    unicode-bidi: isolate;
+}
+
+body {
+    font-family: "Mulish", sans-serif;
+    font-optical-sizing: auto;
+
+}
+
+footer {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+main{
+    display: block;
+    unicode-bidi: isolate;
+}
+h5 {
+    font-size: 1.25rem;
+}
+.align-center{
+    align-items: center;
+}
+
+.bg-purple{
+    background-color: rgb(122, 62, 246);
+}
+
+
+.contact-us{
+    background-color: rgb(231, 240, 255);
+}
+
+.form-back{
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 800px;
+}
+
+.contact-us{
+    padding-top: 60px ;
+}
+
+.contact-us h1{
+    font-weight: 700 ;
+}
+.contact-us p{
+    color: gray;
+}
+
+.benefits-block{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+
+.maps-location{
+    margin: 100px 0px;
+}
+
+.map-style{
+    border-radius: 20px;
+}
+
+@media (max-width:500px) {
+
+    h1{
+        margin-top: 20px;
+    }
+
+    .contact-map img {
+        height: 90%;
+        width: 90%;
+
+        margin-bottom: 20px;
+    }
+}

@@ -1,0 +1,39 @@
+.navbar {
+    background-color: #f8f9fa;
+}
+
+.nav-link {
+    color: #000;
+    margin-right: 1rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand img {
+    margin-right: 0.5rem;
+}
+
+.nav-item:last-child {
+    display: flex;
+    align-items: center;
+}
+
+.icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.icon-wrapper:hover {
+    background-color: #d3d3d3;
+}
+
+.icon-wrapper img {
+    width: 24px;
+    height: 24px;
+}
