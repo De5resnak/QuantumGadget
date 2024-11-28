@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'Catalog',
     'drf_spectacular',
+    'corsheaders',
 
 ]
 
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corshedaers.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'QuantumGadget.urls'
@@ -108,6 +110,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 LANGUAGE_CODE = 'en-us'
 
