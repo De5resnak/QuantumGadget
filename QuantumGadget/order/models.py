@@ -1,5 +1,9 @@
 from django.db import models
 from Catalog.models import Product  # Подключение модели Product
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
 
 
 class Order(models.Model):
@@ -36,15 +40,16 @@ class Order(models.Model):
     items = models.ManyToManyField(Product, through='OrderItem', related_name='orders')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания заказа")
 
-    def save(self, *args, **kwargs):
-        # Генерация уникального номера подтверждения формата "E-id"
-        if not self.confirmation_number:
-            super().save(*args, **kwargs)  # Сохранение объекта для получения id
-            self.confirmation_number = f"E-{self.id}"
-        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"Order {self.id} - {self.confirmation_number}"
+
+
+@receiver(post_save, sender=Order)
+def set_confirmation_number(sender, instance, created, **kwargs):
+    if created and not instance.confirmation_number:
+        instance.confirmation_number = f"E-{instance.id}"
+        instance.save()  # Сохраняем объект после установки confirmation_number
 
 
 class OrderItem(models.Model):
