@@ -1,93 +1,154 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import Slider2 from '../Slider2/Slider2';
-import axios from '../api';
 import './product-page.css';
+import Slider2 from "../Slider2/Slider2";
+import { useCart } from '../CartContext'; // Импортируйте useCart для работы с корзиной
+import Modal from 'react-bootstrap/Modal';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ProductPage = () => {
     const { productId } = useParams();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    const { addToCart } = useCart(); // Получите addToCart из контекста корзины
 
     useEffect(() => {
-        const fetchProduct = async () => {
-            try {
-                const response = await axios.get(`/api/catalog/all/`);
-                const productData = response.data.find(item => item.id === parseInt(productId));
-                if (!productData) {
-                    setError('Товар не найден');
-                } else {
-                    setProduct(productData);
-                }
+        axios
+            .get(`http://127.0.0.1:8000/api/catalog/${productId}/`)
+            .then((response) => {
+                setProduct(response.data);
                 setLoading(false);
-            } catch (error) {
-                setError('Не удалось загрузить данные товара');
+            })
+            .catch((error) => {
+                console.error('Ошибка при запросе товара:', error);
                 setLoading(false);
-            }
-        };
-
-        fetchProduct();
+            });
     }, [productId]);
 
-    if (loading) {
-        return <div className="loading">Загрузка...</div>;
-    }
+    const openModal = (image) => {
+        setSelectedImage(image);
+        setIsModalOpen(true);
+    };
 
-    if (error) {
-        return <div className="error">{error}</div>;
-    }
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    if (loading) return <div>Загрузка...</div>;
+    if (!product) return <div>Товар не найден.</div>;
+    const handleAddToCart = () => {
+        // Добавляем товар в корзину, передаем только первое изображение
+        addToCart({
+            id: product.id,
+            name: product.name,
+            image: product.images[0]?.image, // Передаем только первое изображение
+            price: product.price,
+        });
+    };
+    // Определение отображаемых характеристик
+    const displayAttributes = [
+        { key: 'material', label: 'Материал' },
+        { key: 'weight', label: 'Вес', unit: ' кг' },
+        { key: 'size', label: 'Размеры' },
+        // Добавьте другие характеристики, которые нужно отображать
+    ];
 
     return (
-        <div className="container product-page">
+        <section className="container my-5">
             <div className="row">
-                <div className="col-md-6 product-info">
-                    <h1 className="product-title">{product.name}</h1>
-                    <p className="brand"><strong>Бренд:</strong> {product.brand}</p>
-                    <p className={`availability ${product.in_stock ? 'in-stock' : 'out-of-stock'}`}>
-                        {product.in_stock ? 'В наличии' : 'Нет в наличии'}
-                    </p>
-                    <p className="short-description">{product.short_description}</p>
-                    <h2 className="price">{product.price} ₽</h2>
-                    <button className="btn btn-primary">В корзину</button>
-
-                    <h3 className="section-title">О товаре</h3>
-                    <ul className="product-details">
-                        <li><strong>Материал:</strong> {product.material}</li>
-                        <li><strong>Вес:</strong> {product.weight} кг</li>
-                        <li><strong>Габариты:</strong> {product.size}</li>
-                        <li><strong>Потребляемая мощность:</strong> {product.power}</li>
-                    </ul>
+                <div className="col-md-6">
+                    <Slider2 images={product.images} openModal={openModal} />
                 </div>
                 <div className="col-md-6">
-                    <Slider2 images={product.images.map(img => img.image)} />
+                    <h1>{product.name}</h1>
+                    <p className="text-muted">Бренд: {product.brand}</p>
+                    <div className="d-flex align-items-center mb-3">
+                        {product.old_price && (
+                            <span className="text-decoration-line-through text-muted me-2">
+                                {product.old_price} руб.
+                            </span>
+                        )}
+                        <span className="fs-3 text-danger">{product.price} руб.</span>
+                    </div>
+                    <button
+                        className="btn btn-warning btn-lg mb-3"
+                        onClick={() => handleAddToCart(product.id)} // Используйте addToCart из контекста
+                    >
+                        В корзину
+                    </button>
+                    <ul className="list-unstyled">
+                        {displayAttributes.map(attr => (
+                            product[attr.key] && (
+                                <li key={attr.key}>
+                                    <strong>{attr.label}:</strong> {product[attr.key]}{attr.unit || ''}
+                                </li>
+                            )
+                        ))}
+                    </ul>
                 </div>
             </div>
-            <div className="row mt-5">
-                <div className="col">
-                    <h3 className="section-title">Описание</h3>
-                    <p className="full-description">{product.full_description}</p>
+            <div className="row mt-4">
+                <div className="col-12">
+                    <h3>Описание</h3>
+                    <p>{product.full_description}</p>
+                </div>
+            </div>
+            <div className="row mt-4">
+                <div className="col-12">
+                    <h3>Подробные характеристики</h3>
+                    <ul className="list-group">
+                        {Object.entries(product).map(([key, value]) => (
+                            value &&
+                            key !== 'id' &&
+                            key !== 'type' &&
+                            key !== 'trending' &&
+                            key !== 'name' &&
+                            key !== 'brand' &&
+                            key !== 'short_description' &&
+                            key !== 'price' &&
+                            key !== 'in_stock' &&
+                            key !== 'material' &&
+                            key !== 'weight' &&
+                            key !== 'full_description' &&
+                            key !== 'size' &&
+                            key !== 'images' && (
+                                <li key={key} className="list-group-item d-flex justify-content-between align-items-center">
+                                    <span className="text-capitalize">{key.replace(/_/g, ' ')}:</span>
+                                    <span>{value.toString()}</span>
+                                </li>
+                            )
+                        ))}
+                    </ul>
+                </div>
+            </div>
 
-                    <h4 className="section-title">Подробные характеристики</h4>
-                    <table className="table table-bordered">
-                        <tbody>
-                        <tr>
-                            <th>Модель</th>
-                            <td>{product.model}</td>
-                        </tr>
-                        <tr>
-                            <th>Мощность</th>
-                            <td>{product.power}</td>
-                        </tr>
-                        <tr>
-                            <th>Фильтр</th>
-                            <td>{product.filter}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+            {/* Модальное окно для увеличенной картинки */}
+            {isModalOpen && (
+                <div className="modal" tabIndex="-1" style={{ display: 'block' }}>
+                    <div className="modal-dialog modal-dialog-centered">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <button type="button" className="close" onClick={closeModal}>
+                                    &times;
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <img
+                                    src={selectedImage}
+                                    alt="Full size"
+                                    className="img-fluid"
+                                    style={{ maxWidth: '100%', maxHeight: '80vh', objectFit: 'contain' }}
+                                />
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            )}
+        </section>
     );
 };
 

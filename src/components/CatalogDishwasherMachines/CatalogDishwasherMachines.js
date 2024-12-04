@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import ProductList from "../product-card/productList";
 import { Link, useLocation } from "react-router-dom";
 import './CatalogDishwasherMachines.css';
-import axios from '../api';
+import ProductListDishwasherMachines from "../ProductListDishwasherMachines/ProductListDishwasherMachines";
 
 const CatalogDishwasherMachines = () => {
     const location = useLocation();
@@ -33,7 +32,7 @@ const CatalogDishwasherMachines = () => {
                         {" / "}
                         <Link to="/dishwashers" className="text-decoration-none custom-hover">Посудомоечные машины</Link>
                     </p>
-                    <div className="sort-dropdown">
+                    <div className="sort-dropdown m-3">
                         <label htmlFor="sort-select">Сортировать:</label>
                         <select id="sort-select" value={sortOption} onChange={handleSortChange}>
                             <option value="default">По умолчанию</option>
@@ -62,7 +61,7 @@ const CatalogDishwasherMachines = () => {
                             </div>
                         </Col>
                         <Col xs={12} md={9}>
-                            <ProductList sortOption={sortOption} />
+                            <ProductListDishwasherMachines sortOption={sortOption} />
                         </Col>
                     </Row>
                 </Container>

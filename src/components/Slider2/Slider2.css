@@ -1,8 +1,51 @@
 .carousel-item img {
-    height: 400px;
-    object-fit: cover;
+    width: 100%;
+    height: 400px; /* Высота слайдера */
+    object-fit: contain; /* Полностью отображает изображение */
+    margin: 10px 0; /* Отступы по бокам от картинки */
+    cursor: pointer;
 }
 
-.carousel{
+.carousel {
     margin-top: 2rem;
+}
+
+/* Стрелочки слайдера */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-image: none; /* Убираем фоновое изображение */
+    background-color: transparent; /* Убираем фоновый цвет */
+}
+
+.carousel-control-prev-icon::after,
+.carousel-control-next-icon::after {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border: solid black; /* Цвет стрелок */
+    border-width: 0 4px 4px 0;
+    padding: 3px;
+}
+
+.carousel-control-prev-icon::after {
+    transform: rotate(135deg);
+}
+
+.carousel-control-next-icon::after {
+    transform: rotate(-45deg);
+}
+
+.slider-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.slider-container img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto;
 }

@@ -1,28 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Modal, Button, Form, Offcanvas } from 'react-bootstrap';
 import './Navigation.css';
 import logo from '../../assets/icon/logo.png';
 import cart_logo from '../../assets/icon/cart_icon.png';
+import { useCart } from '../CartContext';
 
-const Navigation = ({ addToCart }) => {
+const Navigation = () => {
     const [show, setShow] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState('+7 ');
     const [isValid, setIsValid] = useState(false);
     const [showSmsInput, setShowSmsInput] = useState(false);
     const [cartVisible, setCartVisible] = useState(false);
-    const [cartItems, setCartItems] = useState([]);
-
-    useEffect(() => {
-        const savedCartItems = JSON.parse(localStorage.getItem('cartItems'));
-        if (savedCartItems) {
-            setCartItems(savedCartItems);
-        }
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    }, [cartItems]);
+    const { cartItems, removeFromCart, getTotalPrice } = useCart(); // Получаем функции из контекста
+    const navigate = useNavigate();
 
     const handleClose = () => {
         setShow(false);
@@ -53,8 +44,12 @@ const Navigation = ({ addToCart }) => {
         }
     };
 
-    const removeFromCart = (index) => {
-        setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
+    const handleRemoveFromCart = (index) => {
+        removeFromCart(index);
+    };
+    const handleCheckout = () => {
+        setCartVisible(false);
+        navigate('/checkout');
     };
 
     return (
@@ -96,18 +91,19 @@ const Navigation = ({ addToCart }) => {
                                 <Link className="nav-link" href="#" onClick={handleShow}>Войти</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link cart-link" href="#" onClick={() => setCartVisible(true)}>
+                                <span className="nav-link cart-link" onClick={() => setCartVisible(true)}>
                                     <span className="icon-wrapper">
                                         <img src={cart_logo} alt="Корзина"/>
                                         {cartItems.length > 0 && <span className="cart-count">{cartItems.length}</span>}
                                     </span>
-                                </a>
+                                </span>
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
 
+            {/* Окно для входа */}
             <Modal show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Войти/Зарегистрироваться</Modal.Title>
@@ -131,45 +127,56 @@ const Navigation = ({ addToCart }) => {
                         </Form.Group>
                         {isValid && !showSmsInput && (
                             <Button variant="primary" className="mt-3" block onClick={handleGetSmsCode}>
-                                Получить SMS код
+                                Получить код
                             </Button>
                         )}
                         {showSmsInput && (
                             <Form.Group controlId="formSmsCode" className="mt-3">
-                                <Form.Label>Введите SMS код</Form.Label>
-                                <div className="d-flex align-items-center">
-                                    <Form.Control
-                                        type="text"
-                                        className="border-0 border-bottom flex-grow-1"
-                                        style={{ boxShadow: 'none' }}
-                                    />
-                                </div>
+                                <Form.Label>Код из SMS</Form.Label>
+                                <Form.Control type="text" placeholder="Введите код" />
                             </Form.Group>
                         )}
                     </Form>
                 </Modal.Body>
             </Modal>
 
-            <Offcanvas show={cartVisible} onHide={() => setCartVisible(false)} placement="end">
+            {/* Окно корзины */}
+            {/* Окно корзины */}
+            <Offcanvas show={cartVisible} onHide={() => setCartVisible(false)} placement="end" className="cart-offcanvas">
                 <Offcanvas.Header closeButton>
                     <Offcanvas.Title>Корзина</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                    {cartItems.length > 0 ? (
-                        <ul className="list-group">
-                            {cartItems.map((item, index) => (
-                                <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <strong>{item.name}</strong> - {item.price} ₽
-                                    </div>
-                                    <Button variant="danger" size="sm" onClick={() => removeFromCart(index)}>
-                                        Удалить
-                                    </Button>
-                                </li>
-                            ))}
-                        </ul>
+                    {cartItems.length === 0 ? (
+                        <p className="text-center">Ваша корзина пуста</p>
                     ) : (
-                        <p>Корзина пуста</p>
+                        <div>
+                            {cartItems.map((item, index) => (
+                                <div key={index} className="cart-item">
+                                    <div className="d-flex align-items-center">
+                                        <img
+                                            src={item.image}
+                                            alt={item.name}
+                                            className="cart-item-image"
+                                        />
+                                        <div className="ms-3">
+                                            <h5 className="cart-item-name">{item.name}</h5>
+                                            <p className="cart-item-price">{item.price}₽ × {item.quantity}</p>
+                                        </div>
+                                        <button
+                                            className="cart-item-remove"
+                                            onClick={() => handleRemoveFromCart(index)}
+                                        >
+                                            Удалить
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                            <div className="cart-total mt-3 text-end">
+                                <h4>Общая сумма: {getTotalPrice()}₽</h4>
+                                <button className="btn btn-success mt-2 w-100" onClick={handleCheckout}>Перейти к оформлению</button>
+                            </div>
+                        </div>
                     )}
                 </Offcanvas.Body>
             </Offcanvas>

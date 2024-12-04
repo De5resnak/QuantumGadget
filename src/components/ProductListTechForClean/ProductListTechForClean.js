@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import ProductCard from './product-card';
-import './product-card.css';
+import ProductCard from '../product-card/product-card';
+import '../product-card/product-card.css';
 import ReactPaginate from 'react-paginate';
-import './pagination.css'; // Подключение стилей для пагинации
+import '../product-card/pagination.css'; // Подключение стилей для пагинации
 
-const ProductList = () => {
+const ProductListTechForClean = ({ sortOption }) => {
     const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const productsPerPage = 6; // Количество продуктов на страницу
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api/catalog/all/')
+        axios.get('http://127.0.0.1:8000/api/catalog/cleaning-equipment/')
             .then(response => {
                 setProducts(response.data);
             })
@@ -20,9 +20,21 @@ const ProductList = () => {
             });
     }, []);
 
+    const sortProducts = (products, sortOption) => {
+        switch (sortOption) {
+            case 'cheap-first':
+                return products.slice().sort((a, b) => a.price - b.price);
+            case 'expensive-first':
+                return products.slice().sort((a, b) => b.price - a.price);
+            default:
+                return products;
+        }
+    };
+
+    const sortedProducts = sortProducts(products, sortOption);
     const offset = currentPage * productsPerPage;
-    const currentProducts = products.slice(offset, offset + productsPerPage);
-    const pageCount = Math.ceil(products.length / productsPerPage);
+    const currentProducts = sortedProducts.slice(offset, offset + productsPerPage);
+    const pageCount = Math.ceil(sortedProducts.length / productsPerPage);
 
     const handlePageClick = ({ selected }) => {
         setCurrentPage(selected);
@@ -57,4 +69,4 @@ const ProductList = () => {
     );
 };
 
-export default ProductList;
+export default ProductListTechForClean;

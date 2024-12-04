@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import ProductList from "../product-card/productList";
 import { Link, useLocation } from "react-router-dom";
 import './CatalogTV.css';
 import axios from '../api';
+import ProductListTV from "../ProductListTV/ProductListTV";
 
 const CatalogTV = () => {
     const location = useLocation();
@@ -33,7 +33,7 @@ const CatalogTV = () => {
                         {" / "}
                         <Link to="/tv" className="text-decoration-none custom-hover">Телевизоры</Link>
                     </p>
-                    <div className="sort-dropdown">
+                    <div className="sort-dropdown m-3">
                         <label htmlFor="sort-select">Сортировать:</label>
                         <select id="sort-select" value={sortOption} onChange={handleSortChange}>
                             <option value="default">По умолчанию</option>
@@ -62,7 +62,7 @@ const CatalogTV = () => {
                             </div>
                         </Col>
                         <Col xs={12} md={9}>
-                            <ProductList sortOption={sortOption} />
+                            <ProductListTV sortOption={sortOption} />
                         </Col>
                     </Row>
                 </Container>

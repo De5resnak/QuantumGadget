@@ -1,29 +1,40 @@
 .product-card {
-    width: 300px; /* Задание фиксированной ширины для карточки */
-    margin: 0 auto; /* Выравнивание карточки по центру */
-}
-
-.product-card img {
-    width: 100%; /* Убедитесь, что изображение занимает всю ширину карточки */
-    height: auto; /* Сохраняйте пропорции изображения */
-}
-
-.card-body {
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Распределение пространства между элементами */
+    justify-content: space-between;
     height: 100%;
 }
 
-.card-title {
-    font-size: 1.25rem; /* Увеличение размера шрифта заголовка */
-    font-weight: bold; /* Жирный шрифт для заголовка */
+.product-card .card-img-top {
+    object-fit: cover;
+    height: 270px;
 }
 
-.card-text {
-    margin-bottom: 1rem; /* Отступ снизу для текста */
+.product-card .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-card .price {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #000;
 }
 
 .my-button {
-    margin-top: auto; /* Перемещение кнопки в конец карточки */
+    margin-top: auto;
+}
+
+.image-link {
+    display: block;
+    overflow: hidden;
+}
+
+.image-link img {
+    width: 100%;
+    height: auto;
+}
+.style-image{
+    width: auto !important;
 }

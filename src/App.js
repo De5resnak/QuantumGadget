@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { CartProvider } from './components/CartContext';  // Импортируем CartProvider
 import Navigation from './components/Navigation/Navigation';
 import HomePage from './components/HomePage/HomePage';
 import FaqPage from './components/FaqPage/FaqPage';
@@ -14,49 +15,34 @@ import CatalogWashingMachines from './components/CatalogWashingMachines/CatalogW
 import CatalogTV from './components/CatalogTV/CatalogTV';
 import CatalogTechForClean from './components/CatalogTechForClean/CatalogTechForClean';
 import CatalogDishwasherMachines from './components/CatalogDishwasherMachines/CatalogDishwasherMachines';
+import CheckoutPage from "./components/CheckoutPage/CheckoutPage";
+import OrderConfirmationPage from "./components/CheckoutPage/OrderConfirmationPage";
+import orderConfirmationPage from "./components/CheckoutPage/OrderConfirmationPage";
 
 const App = () => {
-    const [cartItems, setCartItems] = useState([]);
-
-    // Добавление товара в корзину
-    const addToCart = (item) => {
-        setCartItems((prevItems) => [...prevItems, item]);
-    };
-
-    // Загружаем корзину из localStorage при первом рендере
-    useEffect(() => {
-        const savedCartItems = JSON.parse(localStorage.getItem('cartItems'));
-        if (savedCartItems) {
-            setCartItems(savedCartItems);
-        }
-    }, []);
-
-    // Сохраняем корзину в localStorage при изменении cartItems
-    useEffect(() => {
-        if (cartItems.length > 0) {
-            localStorage.setItem('cartItems', JSON.stringify(cartItems));
-        }
-    }, [cartItems]);
-
     return (
-        <Router>
-            <Navigation cartItems={cartItems} addToCart={addToCart} />
-            <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/ConUs" element={<ContactUs />} />
-                <Route path="/faq" element={<FaqPage />} />
-                <Route path="/PAD" element={<PayAndDelivery />} />
-                <Route path="/AU" element={<AboutUs />} />
-                <Route path="/products" element={<ProductList addToCart={addToCart} />} />
-                <Route path="/products/:productId" element={<ProductPage addToCart={addToCart} />} />
-                <Route path="/catalog" element={<CatalogPage addToCart={addToCart} />} />
-                <Route path="/washing-machines" element={<CatalogWashingMachines addToCart={addToCart} />} />
-                <Route path="/tv" element={<CatalogTV addToCart={addToCart} />} />
-                <Route path="/cleaning-equipment" element={<CatalogTechForClean addToCart={addToCart} />} />
-                <Route path="/dishwashers" element={<CatalogDishwasherMachines addToCart={addToCart} />} />
-            </Routes>
-            <Footer />
-        </Router>
+        <CartProvider>
+            <Router>
+                <Navigation />
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/ConUs" element={<ContactUs />} />
+                    <Route path="/faq" element={<FaqPage />} />
+                    <Route path="/PAD" element={<PayAndDelivery />} />
+                    <Route path="/AU" element={<AboutUs />} />
+                    <Route path="/products" element={<ProductList />} />
+                    <Route path="/products/:productId" element={<ProductPage />} />
+                    <Route path="/catalog" element={<CatalogPage />} />
+                    <Route path="/washing-machines" element={<CatalogWashingMachines />} />
+                    <Route path="/tv" element={<CatalogTV />} />
+                    <Route path="/cleaning-equipment" element={<CatalogTechForClean />} />
+                    <Route path="/dishwashers" element={<CatalogDishwasherMachines />} />
+                    <Route path="/checkout" element={<CheckoutPage/>}/>
+                    <Route path="/order-confirmation/:orderId" element={<OrderConfirmationPage />} />
+                </Routes>
+                <Footer />
+            </Router>
+        </CartProvider>
     );
 };
 

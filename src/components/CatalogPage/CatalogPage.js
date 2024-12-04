@@ -3,7 +3,7 @@ import { Card, Button, Container, Row, Col } from 'react-bootstrap';
 import ProductList from "../product-card/productList";
 import { Link, useLocation } from "react-router-dom";
 import './CatalogPage.css';
-import axios from '../api';
+
 
 const CatalogPage = () => {
     const location = useLocation(); // Получаем текущий путь

@@ -18,6 +18,7 @@ import img3 from "../../assets/images/img3.jpg";
 import img4 from "../../assets/images/img4.jpg";
 import img5 from "../../assets/images/img5.jpg";
 import img6 from "../../assets/images/img6.jpg";
+import ProductListPopylar from "../ProductListPopylar/ProductListPopylar";
 
 const HomePage = () => {
     const [show, setShow] = useState(false);
@@ -46,7 +47,7 @@ const HomePage = () => {
                         <h2>Популярные товары</h2>
                         <p>Что выбирают наши клиенты</p>
                     </div>
-                    <ProductList/>
+                    <ProductListPopylar/>
                 </Container>
             </section>
 
@@ -74,7 +75,7 @@ const HomePage = () => {
                         <Col xs={12} lg={6}>
                             <h2 className="title_name">INstek 459</h2>
                             <p className="title_under">Стиральная машина</p>
-                            <p className="title-text-under">Одна из недорогих моделей - стиральная машина INDESIT IWSD
+                            <p className="title-text-under">Наша собственная разработка - стиральная машина INDESIT IWSD
                                 51051 CIS с 13 программами и полезными режимами. Умеет отстирывать шерсть, хлопок,
                                 синтетику, джинсовую ткань, а также обувь. Загрузка грязного белья производится
                                 фронтально. Управление осуществляется электронно-механическими системами. Самая большая
@@ -92,10 +93,6 @@ const HomePage = () => {
                                 <li className="list-group-item">Расход воды 44 л</li>
                                 <li className="list-group-item">Количество программ 13</li>
                             </ul>
-                            <div className="mb-3">
-                                <span className="price1">18 990 руб.</span>
-                            </div>
-                            <Button className="btn-lg orange-button">В корзину</Button>
                         </Col>
                     </Row>
                 </Container>
