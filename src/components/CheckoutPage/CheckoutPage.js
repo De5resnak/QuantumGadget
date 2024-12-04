@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useCart } from '../CartContext';
 import './CheckoutPage.css';
 import PickupOptions from './PickupOptions';
-import shield from '../../assets/icon/shield.svg'; // Путь к изображениям
+import shield from '../../assets/icon/shield.svg';
 import strelka from '../../assets/icon/strelka.svg';
 import help from '../../assets/icon/help.svg';
 
@@ -33,30 +33,50 @@ const CheckoutPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Проверка наличия товаров в корзине
+        if (cartItems.length === 0) {
+            alert('Корзина пуста!');
+            return;
+        }
+
+        // Подготовка данных для отправки на сервер
+        const orderData = {
+            customer_name: formData.name,
+            email: formData.email,
+            phone_number: formData.phone,
+            delivery_method: formData.deliveryMethod,
+            address: formData.deliveryMethod === 'delivery' ? formData.address : '',  // Адрес нужен только при доставке
+            payment_method: formData.paymentMethod,
+            online_payment_type: formData.onlinePaymentType,
+            items: cartItems.map((item) => ({
+                product_id: item.id,
+                quantity: item.quantity,
+            })),
+        };
+
         try {
-            const response = await fetch('/api/orders/', {
+            const response = await fetch('http://127.0.0.1:8000/api/orders/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    cartItems,
-                    totalPrice: getTotalPrice(),
-                    formData,
-                }),
+                body: JSON.stringify(orderData),
             });
 
             if (response.ok) {
                 const data = await response.json();
                 clearCart();
-                window.location.href = `/order-confirmation/${data.orderId}`; // Редирект на страницу подтверждения заказа
+                window.location.href = `/order-confirmation/${data.orderId}`; // Редирект на страницу с подтверждением заказа
             } else {
                 console.error('Ошибка при оформлении заказа');
+                alert('Ошибка при оформлении заказа');
             }
         } catch (error) {
             console.error('Ошибка при отправке запроса:', error);
+            alert('Произошла ошибка при отправке данных');
         }
-    };;
+    };
 
     return (
         <div className="checkout-page container mt-5">
@@ -81,15 +101,36 @@ const CheckoutPage = () => {
                         <h2 className="mb-3">Данные покупателя</h2>
                         <div className="mb-3">
                             <label className="form-label">Имя</label>
-                            <input type="text" className="form-control" name="name" value={formData.name} onChange={handleInputChange} required />
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleInputChange}
+                                required
+                            />
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Email</label>
-                            <input type="email" className="form-control" name="email" value={formData.email} onChange={handleInputChange} />
+                            <input
+                                type="email"
+                                className="form-control"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleInputChange}
+                                required
+                            />
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Телефон</label>
-                            <input type="text" className="form-control" name="phone" value={formData.phone} onChange={handleInputChange} required />
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="phone"
+                                value={formData.phone}
+                                onChange={handleInputChange}
+                                required
+                            />
                         </div>
 
                         <h2 className="mb-3">Выберите способ получения</h2>
@@ -182,6 +223,7 @@ const CheckoutPage = () => {
                     </form>
                 </div>
 
+                {/* Блок с информацией о безопасности, возврате и помощи */}
                 <div className="col-lg-4">
                     <div className="info-block mb-4 mt-2">
                         <img src={shield} alt="Безопасная оплата" className="mb-2"/>
