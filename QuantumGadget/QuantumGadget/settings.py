@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'Catalog',
     'drf_spectacular',
     'corsheaders',
+    'order'
 
 ]
 
